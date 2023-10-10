@@ -1,0 +1,40 @@
+﻿@model IEnumerable<FPT_Books_Store.Models.Book>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Search Results</h1>
+</div>
+
+<div class="container d-flex justify-content-center mt-100">
+    <div class="row">
+        <ul class="list-unstyled">
+            @foreach (var book in Model)
+            {
+                <li class="col-md-3">
+                    <div class="product-wrapper mb-45 text-center">
+                        <div class="product-img">
+                            <a asp-action="Details" asp-route-id="@book.Id" data-abc="true">
+                                <img src="~/Image/@book.ImgFileName" alt="Image">
+                            </a>
+                            <span class="text-center"><i class="fa fa-rupee"></i> @book.Price</span>
+                            <div class="product-action">
+                                <div class="product-action-style">
+                                    <a href="#"> <i class="fa fa-plus"></i> </a>
+                                    <a href="#"> <i class="fa fa-heart"></i> </a>
+                                    <a href="#"> <i class="fa fa-shopping-cart"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<p class="text-center">
+    <a asp-action="Index">Back to Home</a>
+</p>

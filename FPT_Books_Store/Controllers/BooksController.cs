@@ -54,16 +54,16 @@ namespace FPT_Books_Store.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Id");
-            ViewData["CategoryID"] = new SelectList(_context.Category, "Id", "Id");
-            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Id");
+            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Name");
+            ViewData["CategoryID"] = new SelectList(_context.Category, "Id", "Name");
+            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Name");
             return View();
         }
 
         // POST: Books/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost("Create")]
+        [HttpPost("Books/Create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,CategoryID,Price,AuthorID,PublishingCompanyID,Quantity,Description")] Book book, IFormFile file)
         {
@@ -94,9 +94,9 @@ namespace FPT_Books_Store.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Id", book.AuthorID);
-            ViewData["CategoryID"] = new SelectList(_context.Category, "Id", "Id", book.CategoryID);
-            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Id", book.PublishingCompanyID);
+            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Name", book.AuthorID);
+            ViewData["CategoryID"] = new SelectList(_context.Category, "Id", "Name", book.CategoryID);
+            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Name", book.PublishingCompanyID);
             return View(book);
         }
 
@@ -113,9 +113,9 @@ namespace FPT_Books_Store.Controllers
             {
                 return NotFound();
             }
-            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Id", book.AuthorID);
-            ViewData["CategoryID"] = new SelectList(_context.Category, "Id", "Id", book.CategoryID);
-            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Id", book.PublishingCompanyID);
+            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Name", book.AuthorID);
+            ViewData["CategoryID"] = new SelectList(_context.Category, "Id", "Name", book.CategoryID);
+            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Name", book.PublishingCompanyID);
             return View(book);
         }
 
@@ -151,9 +151,9 @@ namespace FPT_Books_Store.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Id", book.AuthorID);
-            ViewData["CategoryID"] = new SelectList(_context.Category, "Id", "Id", book.CategoryID);
-            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Id", book.PublishingCompanyID);
+            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Name", book.AuthorID);
+            ViewData["CategoryID"] = new SelectList(_context.Category, "Id", "Name", book.CategoryID);
+            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Name", book.PublishingCompanyID);
             return View(book);
         }
 

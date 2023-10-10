@@ -28,12 +28,7 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Image/")), // ?i?u này s? tr? ??n th? m?c ch?a hình ?nh
-    RequestPath = "/images" // ?ây là ???ng d?n b?n mu?n s? d?ng ?? truy c?p hình ?nh t? ?ng d?ng c?a b?n
-});
+
 
 
 app.UseHttpsRedirection();
@@ -46,6 +41,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+
+
 app.MapRazorPages();
 
 app.Run();
