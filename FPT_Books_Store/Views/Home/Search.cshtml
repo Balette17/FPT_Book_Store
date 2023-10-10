@@ -10,10 +10,10 @@
 
 <div class="container d-flex justify-content-center mt-100">
     <div class="row">
-        <ul class="list-unstyled">
+        
             @foreach (var book in Model)
             {
-                <li class="col-md-3">
+                <div class="col-md-3">
                     <div class="product-wrapper mb-45 text-center">
                         <div class="product-img">
                             <a asp-action="Details" asp-route-id="@book.Id" data-abc="true">
@@ -29,9 +29,9 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </div>
             }
-        </ul>
+        
     </div>
 </div>
 
