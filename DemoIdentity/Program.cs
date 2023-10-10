@@ -2,6 +2,7 @@ using DemoIdentity.Data;
 using DemoIdentity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,9 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI()
             .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
+
+
+
 
 var app = builder.Build();
 
@@ -44,6 +48,15 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Image")),
+    RequestPath = "/Image"
+});
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
