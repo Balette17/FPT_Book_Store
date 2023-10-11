@@ -14,5 +14,6 @@ namespace DemoIdentity.Data
         public DbSet<BookCan.Models.Book> Book { get; set; } = default!;
         public DbSet<BookCan.Models.Author> Author { get; set; } = default!;
         public DbSet<BookCan.Models.PublishingCompany> PublishingCompany { get; set; } = default!;
+        public DbSet<BookCan.Models.Category> Category { get; set; } = default!;
     }
 }
