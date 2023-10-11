@@ -22,6 +22,16 @@ namespace FPTBookStore.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            // Tìm kiếm sách trong cơ sở dữ liệu dựa trên searchTerm
+            var searchResults = await _context.Book
+                .Where(book => book.Name.Contains(searchTerm) || book.Description.Contains(searchTerm))
+                .ToListAsync();
+
+            // Trả về kết quả tìm kiếm
+            return View(searchResults);
+        }
         public IActionResult Privacy()
         {
             return View();

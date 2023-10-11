@@ -7,9 +7,12 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New</a> 
+    </br>
     <a asp-controller="Authors">Authors New</a>
+    </br>
     <a asp-controller="Categories">Categories New</a>
+    </br>
     <a asp-controller="PublishingCompanies">PublishingCompanies New</a>
 </p>
 <table class="table">
@@ -67,7 +70,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                    <img src="~/Image/@item.ImgFileName" alt="Image" style="width: 100px; high: 100px">
+             <img src="~/Image/@item.ImgFileName" alt="Image" style="width: 100px; high: 100px">
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

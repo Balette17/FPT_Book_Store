@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FPTBook.Controllers
 {
-    [Authorize(Roles = "Owner")]
+    
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,6 +23,7 @@ namespace FPTBook.Controllers
             _context = context;
             this._hostEnvironment = hostEnvironment;
         }
+        [Authorize(Roles = "Owner")]
 
         // GET: Books
         public async Task<IActionResult> Index()
@@ -30,7 +31,7 @@ namespace FPTBook.Controllers
             var applicationDbContext = _context.Book.Include(b => b.Author).Include(b => b.Category).Include(b => b.PublishingCompany);
             return View(await applicationDbContext.ToListAsync());
         }
-
+        [Authorize(Roles = "User")]
         // GET: Books/Details/5
         public async Task<IActionResult> Details(int? id)
         {

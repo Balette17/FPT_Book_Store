@@ -22,7 +22,7 @@ namespace FPTBook.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BookCan.Models.Author", b =>
+            modelBuilder.Entity("FPTBook.Models.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -38,7 +38,7 @@ namespace FPTBook.Migrations
                     b.ToTable("Author");
                 });
 
-            modelBuilder.Entity("BookCan.Models.Book", b =>
+            modelBuilder.Entity("FPTBook.Models.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace FPTBook.Migrations
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("BookCan.Models.Category", b =>
+            modelBuilder.Entity("FPTBook.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -100,7 +100,7 @@ namespace FPTBook.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("BookCan.Models.PublishingCompany", b =>
+            modelBuilder.Entity("FPTBook.Models.PublishingCompany", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -116,7 +116,7 @@ namespace FPTBook.Migrations
                     b.ToTable("PublishingCompany");
                 });
 
-            modelBuilder.Entity("DemoIdentity.Models.ApplicationUser", b =>
+            modelBuilder.Entity("FPTBookStore.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -332,21 +332,21 @@ namespace FPTBook.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("BookCan.Models.Book", b =>
+            modelBuilder.Entity("FPTBook.Models.Book", b =>
                 {
-                    b.HasOne("BookCan.Models.Author", "Author")
+                    b.HasOne("FPTBook.Models.Author", "Author")
                         .WithMany("Books")
                         .HasForeignKey("AuthorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookCan.Models.Category", "Category")
+                    b.HasOne("FPTBook.Models.Category", "Category")
                         .WithMany("Books")
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookCan.Models.PublishingCompany", "PublishingCompany")
+                    b.HasOne("FPTBook.Models.PublishingCompany", "PublishingCompany")
                         .WithMany("Books")
                         .HasForeignKey("PublishingCompanyID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -370,7 +370,7 @@ namespace FPTBook.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("DemoIdentity.Models.ApplicationUser", null)
+                    b.HasOne("FPTBookStore.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -379,7 +379,7 @@ namespace FPTBook.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("DemoIdentity.Models.ApplicationUser", null)
+                    b.HasOne("FPTBookStore.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -394,7 +394,7 @@ namespace FPTBook.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DemoIdentity.Models.ApplicationUser", null)
+                    b.HasOne("FPTBookStore.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -403,24 +403,24 @@ namespace FPTBook.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("DemoIdentity.Models.ApplicationUser", null)
+                    b.HasOne("FPTBookStore.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BookCan.Models.Author", b =>
+            modelBuilder.Entity("FPTBook.Models.Author", b =>
                 {
                     b.Navigation("Books");
                 });
 
-            modelBuilder.Entity("BookCan.Models.Category", b =>
+            modelBuilder.Entity("FPTBook.Models.Category", b =>
                 {
                     b.Navigation("Books");
                 });
 
-            modelBuilder.Entity("BookCan.Models.PublishingCompany", b =>
+            modelBuilder.Entity("FPTBook.Models.PublishingCompany", b =>
                 {
                     b.Navigation("Books");
                 });
