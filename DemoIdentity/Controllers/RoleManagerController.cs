@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DemoIdentity.Controllers
 {
-	public class RoleManagerController : Controller
+    [Authorize(Roles = "Admin")]
+    public class RoleManagerController : Controller
 	{
 		private readonly RoleManager<IdentityRole> _roleManager;
 		public RoleManagerController(RoleManager<IdentityRole> roleManager)

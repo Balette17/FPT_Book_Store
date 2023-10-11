@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DemoIdentity.Migrations
+namespace BookCan.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
