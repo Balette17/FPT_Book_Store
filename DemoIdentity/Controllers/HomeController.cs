@@ -1,5 +1,7 @@
-﻿using DemoIdentity.Models;
+﻿using DemoIdentity.Data;
+using DemoIdentity.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace DemoIdentity.Controllers
@@ -7,15 +9,17 @@ namespace DemoIdentity.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _context;
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            var applicationDbContext = _context.Book.Include(b => b.Author).Include(b => b.Category).Include(b => b.PublishingCompany);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         public IActionResult Privacy()

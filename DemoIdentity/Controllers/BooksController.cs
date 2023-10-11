@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookCan.Models;
 using DemoIdentity.Data;
+using Microsoft.Extensions.Hosting;
 
 namespace BookCan.Controllers
 {
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public BooksController(ApplicationDbContext context)
+        public BooksController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            this._hostEnvironment = hostEnvironment;
         }
 
         // GET: Books
@@ -50,9 +53,9 @@ namespace BookCan.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Id");
-            ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "Id", "Id");
-            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Id");
+            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Name");
+            ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "Id", "Name");
+            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Name");
             return View();
         }
 
@@ -61,17 +64,35 @@ namespace BookCan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CategoryID,Price,AuthorID,PublishingCompanyID,Quantity,Description,ImgFileName,ImgFileExt")] Book book)
+        public async Task<IActionResult> Create([Bind("Name,CategoryID,Price,AuthorID,PublishingCompanyID,Quantity,Description")] Book book, IFormFile file)
         {
             if (ModelState.IsValid)
             {
+                string fileName = "";
+                string extension = "";
+                if (file != null && file.Length > 0)
+                {
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                    extension = Path.GetExtension(file.FileName);
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+                    string path = Path.Combine(wwwRootPath, "Image", fileName);
+
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                }
+                book.ImgFileName = fileName;
+                book.ImgFileExt = extension;
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Id", book.AuthorID);
+            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Name", book.AuthorID);
             ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "Id", "Id", book.CategoryID);
-            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Id", book.PublishingCompanyID);
+            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Name", book.PublishingCompanyID);
             return View(book);
         }
 
@@ -88,9 +109,9 @@ namespace BookCan.Controllers
             {
                 return NotFound();
             }
-            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Id", book.AuthorID);
-            ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "Id", "Id", book.CategoryID);
-            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Id", book.PublishingCompanyID);
+            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Name", book.AuthorID);
+            ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "Id", "Name", book.CategoryID);
+            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Name", book.PublishingCompanyID);
             return View(book);
         }
 
@@ -126,9 +147,9 @@ namespace BookCan.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Id", book.AuthorID);
-            ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "Id", "Id", book.CategoryID);
-            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Id", book.PublishingCompanyID);
+            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "Id", "Name", book.AuthorID);
+            ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "Id", "Name", book.CategoryID);
+            ViewData["PublishingCompanyID"] = new SelectList(_context.Set<PublishingCompany>(), "Id", "Name", book.PublishingCompanyID);
             return View(book);
         }
 
