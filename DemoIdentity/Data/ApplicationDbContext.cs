@@ -1,6 +1,7 @@
 ﻿using DemoIdentity.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using BookCan.Models;
 
 namespace DemoIdentity.Data
 {
@@ -10,5 +11,6 @@ namespace DemoIdentity.Data
             : base(options)
         {
         }
+        public DbSet<BookCan.Models.Book> Book { get; set; } = default!;
     }
 }

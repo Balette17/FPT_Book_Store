@@ -55,4 +55,4 @@ namespace BookCan.Models
         public ICollection<Book>? Books { get; set; }
     }
 }
-}
+
