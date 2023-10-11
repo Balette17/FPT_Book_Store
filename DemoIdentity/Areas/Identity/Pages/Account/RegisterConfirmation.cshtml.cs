@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using DemoIdentity.Models;
+using FPTBookStore.Models;
 
 
 
-namespace DemoIdentity.Areas.Identity.Pages.Account
+namespace FPTBookStore.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterConfirmationModel : PageModel

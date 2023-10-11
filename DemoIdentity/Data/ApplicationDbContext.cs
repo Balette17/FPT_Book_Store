@@ -1,9 +1,9 @@
-﻿using DemoIdentity.Models;
+﻿using FPTBookStore.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using BookCan.Models;
+using FPTBook.Models;
 
-namespace DemoIdentity.Data
+namespace FPTBookStore.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -11,9 +11,9 @@ namespace DemoIdentity.Data
             : base(options)
         {
         }
-        public DbSet<BookCan.Models.Book> Book { get; set; } = default!;
-        public DbSet<BookCan.Models.Author> Author { get; set; } = default!;
-        public DbSet<BookCan.Models.PublishingCompany> PublishingCompany { get; set; } = default!;
-        public DbSet<BookCan.Models.Category> Category { get; set; } = default!;
+        public DbSet<FPTBook.Models.Book> Book { get; set; } = default!;
+        public DbSet<FPTBook.Models.Author> Author { get; set; } = default!;
+        public DbSet<FPTBook.Models.PublishingCompany> PublishingCompany { get; set; } = default!;
+        public DbSet<FPTBook.Models.Category> Category { get; set; } = default!;
     }
 }

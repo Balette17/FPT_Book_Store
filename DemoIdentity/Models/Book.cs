@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BookCan.Models
+namespace FPTBook.Models
 {
     public class Book
     {

@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using BookCan.Models;
-using DemoIdentity.Data;
+using FPTBook.Models;
+using FPTBookStore.Data;
 
-namespace BookCan.Controllers
+namespace FPTBook.Controllers
 {
     public class PublishingCompaniesController : Controller
     {

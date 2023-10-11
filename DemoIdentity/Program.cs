@@ -1,5 +1,5 @@
-using DemoIdentity.Data;
-using DemoIdentity.Models;
+using FPTBookStore.Data;
+using FPTBookStore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;

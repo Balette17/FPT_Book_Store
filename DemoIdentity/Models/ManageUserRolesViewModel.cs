@@ -1,4 +1,4 @@
-﻿namespace DemoIdentity.Models
+﻿namespace FPTBookStore.Models
 {
     public class ManageUserRolesViewModel
     {

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using DemoIdentity.Models;
+using FPTBookStore.Models;
 
-namespace DemoIdentity.Areas.Identity.Pages.Account.Manage
+namespace FPTBookStore.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {

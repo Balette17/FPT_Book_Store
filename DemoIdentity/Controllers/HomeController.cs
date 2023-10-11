@@ -1,10 +1,10 @@
-﻿using DemoIdentity.Data;
-using DemoIdentity.Models;
+﻿using FPTBookStore.Data;
+using FPTBookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
-namespace DemoIdentity.Controllers
+namespace FPTBookStore.Controllers
 {
     public class HomeController : Controller
     {

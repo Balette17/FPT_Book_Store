@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using DemoIdentity.Models;
+using FPTBookStore.Models;
 
-namespace DemoIdentity.Areas.Identity.Pages.Account
+namespace FPTBookStore.Areas.Identity.Pages.Account
 {
     public class ConfirmEmailModel : PageModel
     {

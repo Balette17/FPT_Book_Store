@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using BookCan.Models;
-using DemoIdentity.Data;
+using FPTBook.Models;
+using FPTBookStore.Data;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
-namespace BookCan.Controllers
+namespace FPTBook.Controllers
 {
+    [Authorize(Roles = "Owner")]
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;

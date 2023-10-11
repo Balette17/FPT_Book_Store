@@ -1,7 +1,7 @@
-﻿using DemoIdentity.Models;
+﻿using FPTBookStore.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace DemoIdentity.Data
+namespace FPTBookStore.Data
 {
 	public static class ContextSeed
 	{
@@ -9,7 +9,9 @@ namespace DemoIdentity.Data
 		{
 			//Seed Roles
 			await roleManager.CreateAsync(new IdentityRole(Enums.Roles.Admin.ToString()));
-		}
+            await roleManager.CreateAsync(new IdentityRole(Enums.Roles.Owner.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(Enums.Roles.User.ToString()));
+        }
 		public static async Task SeedSuperAdminAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
 		{
 			//Seed Default User

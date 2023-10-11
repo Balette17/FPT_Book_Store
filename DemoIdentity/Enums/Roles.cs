@@ -1,4 +1,4 @@
-﻿namespace DemoIdentity.Enums
+﻿namespace FPTBookStore.Enums
 {
 	public enum Roles
 	{

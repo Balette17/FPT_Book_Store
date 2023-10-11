@@ -1,10 +1,10 @@
-﻿using DemoIdentity.Models;
+﻿using FPTBookStore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DemoIdentity.Controllers
+namespace FPTBookStore.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class UserRolesController : Controller

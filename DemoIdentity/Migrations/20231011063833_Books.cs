@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace BookCan.Migrations
+namespace FPTBook.Migrations
 {
     /// <inheritdoc />
     public partial class Books : Migration
