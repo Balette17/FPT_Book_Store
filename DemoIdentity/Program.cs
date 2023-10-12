@@ -17,6 +17,13 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI()
             .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".BookTicket.Session";
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -33,6 +40,10 @@ using (var scope = app.Services.CreateScope())
 		await ContextSeed.SeedRolesAsync(userManager, roleManager);
 	    await ContextSeed.SeedSuperAdminAsync(userManager, roleManager);
 }
+
+builder.Services.AddDistributedMemoryCache();
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -49,6 +60,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 

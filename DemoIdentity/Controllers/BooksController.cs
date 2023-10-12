@@ -9,6 +9,7 @@ using FPTBook.Models;
 using FPTBookStore.Data;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authorization;
+using FPTBook.Utils;
 
 namespace FPTBook.Controllers
 {
@@ -23,6 +24,7 @@ namespace FPTBook.Controllers
             _context = context;
             this._hostEnvironment = hostEnvironment;
         }
+
         [Authorize(Roles = "Owner")]
 
         // GET: Books
@@ -31,7 +33,7 @@ namespace FPTBook.Controllers
             var applicationDbContext = _context.Book.Include(b => b.Author).Include(b => b.Category).Include(b => b.PublishingCompany);
             return View(await applicationDbContext.ToListAsync());
         }
-        [Authorize(Roles = "User")]
+        
         // GET: Books/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -200,5 +202,37 @@ namespace FPTBook.Controllers
         {
           return (_context.Book?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+        [HttpPost]
+        public IActionResult AddTicket(int id, string name, decimal price, int quantity)
+        {
+            ShoppingCart myCart;
+            // If the cart is not in the session, create one and put it there
+            // Otherwise, get it from the session
+            if (HttpContext.Session.GetObject<ShoppingCart>("cart") == null)
+            {
+                myCart = new ShoppingCart();
+                HttpContext.Session.SetObject("cart", myCart);
+            }
+            myCart = (ShoppingCart)HttpContext.Session.GetObject<ShoppingCart>("cart");
+            var newItem = myCart.AddItem(id, name, price, quantity);
+            HttpContext.Session.SetObject("cart", myCart);
+            ViewData["newItem"] = newItem;
+            return View();
+        }
+        public IActionResult CheckOut()
+        {
+            if (HttpContext.Session.GetObject<ShoppingCart>("cart") == null)
+            {
+                ShoppingCart myCart = new ShoppingCart();
+                HttpContext.Session.SetObject("cart", myCart);
+            }
+            ShoppingCart cart = (ShoppingCart)HttpContext.Session.GetObject<ShoppingCart>("cart");
+            ViewData["myItems"] = cart.Items;
+            return View();
+        }
+       
+        
     }
 }
