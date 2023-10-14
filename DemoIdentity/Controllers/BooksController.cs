@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using FPTBookStore.Data;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authorization;
 using FPTBook.Utils;
+using System.Security.Claims;
 
 namespace FPTBook.Controllers
 {
@@ -205,7 +207,7 @@ namespace FPTBook.Controllers
 
 
         [HttpPost]
-        public IActionResult AddTicket(int id, string name, decimal price, int quantity)
+        public IActionResult Apptocart(int id, string name, decimal price, int quantity)
         {
             ShoppingCart myCart;
             // If the cart is not in the session, create one and put it there
@@ -232,7 +234,101 @@ namespace FPTBook.Controllers
             ViewData["myItems"] = cart.Items;
             return View();
         }
-       
-        
+        public IActionResult PlaceOrder(decimal total)
+        {
+            if (HttpContext.Session.GetObject<ShoppingCart>("cart") == null)
+            {
+                ShoppingCart myCart = new ShoppingCart();
+                HttpContext.Session.SetObject("cart", myCart);
+            }
+            ShoppingCart cart = (ShoppingCart)HttpContext.Session.GetObject<ShoppingCart>("cart");
+            Order myOrder = new Order();
+            myOrder.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            myOrder.OrderTime = DateTime.Now;
+            myOrder.Total = total;
+            _context.Order.Add(myOrder);
+            _context.SaveChanges();//this generates the Id for Order
+
+            foreach (var item in cart.Items)
+            {
+                OrderItem myOrderItem = new OrderItem();
+                myOrderItem.BooksID = item.ID;
+                myOrderItem.Quantity = item.Quantity;
+                myOrderItem.OrderID = myOrder.Id;//id of saved order above
+
+                _context.OrderItem.Add(myOrderItem);
+            }
+            _context.SaveChanges();
+            //empty shopping cart
+            cart = new ShoppingCart();
+            HttpContext.Session.SetObject("cart", cart);
+
+            return RedirectToAction("CheckOut", "Books");
+        }
+
+        [HttpPost]
+        public RedirectToActionResult EditOrder(int id, int quantity)
+        {
+            ShoppingCart cart = (ShoppingCart)HttpContext.Session.GetObject<ShoppingCart>("cart");
+            cart.EditItem(id, quantity);
+            HttpContext.Session.SetObject("cart", cart);
+
+            return RedirectToAction("CheckOut", "Books");
+        }
+        [HttpPost]
+        public RedirectToActionResult RemoveOrderItem(int id)
+        {
+            ShoppingCart cart = (ShoppingCart)HttpContext.Session.GetObject<ShoppingCart>("cart");
+            cart.RemoveItem(id);
+            HttpContext.Session.SetObject("cart", cart);
+
+            return RedirectToAction("CheckOut", "Books");
+        }
+
+        //public IActionResult ExportMovieList()
+        //{
+        //    // Get the movie list 
+        //    var queryMovie = _context.Book.Include(m => m.Category);
+        //    List<Book> movies = queryMovie.ToList();
+
+        //    var stream = new MemoryStream();
+        //    using (var xlPackage = new ExcelPackage(stream))
+        //    {
+        //        var worksheet = xlPackage.Workbook.Worksheets.Add("Movies");
+        //        var namedStyle = xlPackage.Workbook.Styles.CreateNamedStyle("HyperLink");
+        //        namedStyle.Style.Font.UnderLine = true;
+        //        const int startRow = 5;
+        //        var row = startRow;
+
+        //        //Create Headers and format them
+        //        worksheet.Cells["A1"].Value = "Sample";
+        //        using (var r = worksheet.Cells["A1:C1"])
+        //        {
+        //            r.Merge = true;
+        //            r.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.CenterContinuous;
+        //        }
+
+        //        worksheet.Cells["A4"].Value = "Title";
+        //        worksheet.Cells["B4"].Value = "Genre";
+        //        worksheet.Cells["C4"].Value = "Price";
+        //        worksheet.Cells["A4:C4"].Style.Font.Bold = true;
+
+        //        row = 5;
+        //        foreach (var movie in movies)
+        //        {
+        //            worksheet.Cells[row, 1].Value = movie.Title;
+        //            worksheet.Cells[row, 2].Value = movie.Genre.Name;
+        //            worksheet.Cells[row, 3].Value = movie.Price;
+        //            row++;
+        //        }
+        //        // save the new spreadsheet
+        //        xlPackage.Save();
+        //        // Response.Clear();
+        //    }
+        //    stream.Position = 0;
+        //    return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "movies.xlsx");
+        //}
+
+
     }
 }

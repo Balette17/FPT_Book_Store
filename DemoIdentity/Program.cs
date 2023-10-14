@@ -3,6 +3,8 @@ using FPTBookStore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using FPTBook.Controllers;
+using FPTBook.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +23,13 @@ builder.Services.AddSession(options =>
 {
     options.Cookie.Name = ".BookTicket.Session";
     options.IdleTimeout = TimeSpan.FromSeconds(10);
-
+    
     options.Cookie.IsEssential = true;
 });
+
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -56,6 +62,12 @@ else
     app.UseHsts();
 }
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+};
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -68,5 +80,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+app.MapBookEndpoints();
 
 app.Run();

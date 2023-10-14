@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+
 namespace FPTBook.Utils
 {
     public static class SessionExtensions
@@ -71,8 +72,16 @@ namespace FPTBook.Utils
                 }
             }
         }
-        public void RemoveItem(int productId) {            
+
+        public void RemoveItem(int productId) 
+        {            
             this.EditItem(productId,0);
+
+        }
+
+        internal void UpdateItem(int id, int quantity)
+        {
+            throw new NotImplementedException();
         }
     }    
 }

@@ -68,21 +68,6 @@ namespace FPTBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Carts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    State = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Carts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Category",
                 columns: table => new
                 {
@@ -215,6 +200,27 @@ namespace FPTBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    OrderTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    State = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Order_AspNetUsers_UserID",
+                        column: x => x.UserID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Book",
                 columns: table => new
                 {
@@ -254,7 +260,7 @@ namespace FPTBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CartDetails",
+                name: "OrderItem",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -265,17 +271,17 @@ namespace FPTBook.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartDetails", x => x.Id);
+                    table.PrimaryKey("PK_OrderItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CartDetails_Book_BooksID",
+                        name: "FK_OrderItem_Book_BooksID",
                         column: x => x.BooksID,
                         principalTable: "Book",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CartDetails_Carts_OrderID",
+                        name: "FK_OrderItem_Order_OrderID",
                         column: x => x.OrderID,
-                        principalTable: "Carts",
+                        principalTable: "Order",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -335,13 +341,18 @@ namespace FPTBook.Migrations
                 column: "PublishingCompanyID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartDetails_BooksID",
-                table: "CartDetails",
+                name: "IX_Order_UserID",
+                table: "Order",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItem_BooksID",
+                table: "OrderItem",
                 column: "BooksID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartDetails_OrderID",
-                table: "CartDetails",
+                name: "IX_OrderItem_OrderID",
+                table: "OrderItem",
                 column: "OrderID");
         }
 
@@ -364,19 +375,16 @@ namespace FPTBook.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CartDetails");
+                name: "OrderItem");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Book");
 
             migrationBuilder.DropTable(
-                name: "Carts");
+                name: "Order");
 
             migrationBuilder.DropTable(
                 name: "Author");
@@ -386,6 +394,9 @@ namespace FPTBook.Migrations
 
             migrationBuilder.DropTable(
                 name: "PublishingCompany");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

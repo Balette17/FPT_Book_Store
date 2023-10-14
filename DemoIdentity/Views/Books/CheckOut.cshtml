@@ -24,14 +24,14 @@
             <td>@(item.Price * item.Quantity)</td>
             <td>
                 <input type="hidden" name="id" value="@item.ID" />
-                <input type="submit" value="Update" class="btn btn-primary" />
+                <input type="submit" value="UpdateItem" class="btn btn-primary" />
             </td>
             </form>
             <td>
                 <form asp-action="RemoveOrderItem" method="post">
 
                     <input type="hidden" name="id" value="@item.ID" />
-                    <input type="submit" value="Remove" class="btn btn-danger" />
+                    <input type="submit" value="RemoveItem" class="btn btn-danger" />
                 </form>
             </td>
         </tr>

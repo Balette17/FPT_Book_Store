@@ -1,4 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using FPTBookStore.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.OpenApi;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace FPTBook.Models
 {
@@ -54,5 +58,73 @@ namespace FPTBook.Models
         public string? Name { get; set; }
         public ICollection<Book>? Books { get; set; }
     }
-}
+
+
+public static class BookEndpoints
+{
+	public static void MapBookEndpoints (this IEndpointRouteBuilder routes)
+    {
+        var group = routes.MapGroup("/api/Book").WithTags(nameof(Book));
+
+        group.MapGet("/", async (ApplicationDbContext db) =>
+        {
+            return await db.Book.ToListAsync();
+        })
+        .WithName("GetAllBooks")
+        .WithOpenApi();
+
+        group.MapGet("/{id}", async Task<Results<Ok<Book>, NotFound>> (int id, ApplicationDbContext db) =>
+        {
+            return await db.Book.AsNoTracking()
+                .FirstOrDefaultAsync(model => model.Id == id)
+                is Book model
+                    ? TypedResults.Ok(model)
+                    : TypedResults.NotFound();
+        })
+        .WithName("GetBookById")
+        .WithOpenApi();
+
+        group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int id, Book book, ApplicationDbContext db) =>
+        {
+            var affected = await db.Book
+                .Where(model => model.Id == id)
+                .ExecuteUpdateAsync(setters => setters
+                  .SetProperty(m => m.Id, book.Id)
+                  .SetProperty(m => m.Name, book.Name)
+                  .SetProperty(m => m.CategoryID, book.CategoryID)
+                  .SetProperty(m => m.Price, book.Price)
+                  .SetProperty(m => m.AuthorID, book.AuthorID)
+                  .SetProperty(m => m.PublishingCompanyID, book.PublishingCompanyID)
+                  .SetProperty(m => m.Quantity, book.Quantity)
+                  .SetProperty(m => m.Description, book.Description)
+                  .SetProperty(m => m.ImgFileName, book.ImgFileName)
+                  .SetProperty(m => m.ImgFileExt, book.ImgFileExt)
+                );
+
+            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
+        })
+        .WithName("UpdateBook")
+        .WithOpenApi();
+
+        group.MapPost("/", async (Book book, ApplicationDbContext db) =>
+        {
+            db.Book.Add(book);
+            await db.SaveChangesAsync();
+            return TypedResults.Created($"/api/Book/{book.Id}",book);
+        })
+        .WithName("CreateBook")
+        .WithOpenApi();
+
+        group.MapDelete("/{id}", async Task<Results<Ok, NotFound>> (int id, ApplicationDbContext db) =>
+        {
+            var affected = await db.Book
+                .Where(model => model.Id == id)
+                .ExecuteDeleteAsync();
+
+            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
+        })
+        .WithName("DeleteBook")
+        .WithOpenApi();
+    }
+}}
 

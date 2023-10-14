@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231012033048_InitialCreate")]
+    [Migration("20231014015959_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -120,9 +120,14 @@ namespace FPTBook.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Carts");
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("FPTBook.Models.OrderItem", b =>
@@ -148,7 +153,7 @@ namespace FPTBook.Migrations
 
                     b.HasIndex("OrderID");
 
-                    b.ToTable("CartDetails");
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("FPTBook.Models.PublishingCompany", b =>
@@ -406,6 +411,15 @@ namespace FPTBook.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("PublishingCompany");
+                });
+
+            modelBuilder.Entity("FPTBook.Models.Order", b =>
+                {
+                    b.HasOne("FPTBookStore.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FPTBook.Models.OrderItem", b =>
