@@ -284,6 +284,7 @@ namespace FPTBook.Controllers
 
             return RedirectToAction("CheckOut", "Books");
         }
+    }
 
         //public IActionResult ExportMovieList()
         //{
@@ -331,4 +332,5 @@ namespace FPTBook.Controllers
 
 
     }
-}
+
+

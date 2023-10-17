@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using FPTBook.Controllers;
 using FPTBook.Models;
+using FPTBook.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,7 @@ using (var scope = app.Services.CreateScope())
 		var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 		await ContextSeed.SeedRolesAsync(userManager, roleManager);
 	    await ContextSeed.SeedSuperAdminAsync(userManager, roleManager);
+    SeedData.Initialize(context);
 }
 
 builder.Services.AddDistributedMemoryCache();
