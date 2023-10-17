@@ -7,7 +7,8 @@ namespace FPTBook.Models
     {
 
         public int Id { get; set; }
-        public string? UserID { get; set; }
+
+        public string? UserName { get; set; }
         public ApplicationUser? User { get; set; }
 
         [DataType(DataType.Date)]

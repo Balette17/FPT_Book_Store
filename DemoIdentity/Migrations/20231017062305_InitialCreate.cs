@@ -205,7 +205,8 @@ namespace FPTBook.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     OrderTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false)
@@ -214,8 +215,8 @@ namespace FPTBook.Migrations
                 {
                     table.PrimaryKey("PK_Order", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Order_AspNetUsers_UserID",
-                        column: x => x.UserID,
+                        name: "FK_Order_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -341,9 +342,9 @@ namespace FPTBook.Migrations
                 column: "PublishingCompanyID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_UserID",
+                name: "IX_Order_UserId",
                 table: "Order",
-                column: "UserID");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItem_BooksID",
