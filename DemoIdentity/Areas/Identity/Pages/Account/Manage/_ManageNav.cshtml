@@ -1,5 +1,5 @@
-﻿@using FPTBookStore.Models;
-@inject SignInManager<ApplicationUser> SignInManager
+﻿@using FPTBook.Areas.Identity.Pages.Account.Manage;
+@inject SignInManager<FPTBook.Models.ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

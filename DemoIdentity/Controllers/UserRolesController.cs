@@ -1,12 +1,12 @@
-﻿using FPTBookStore.Models;
+﻿using FPTBook.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FPTBookStore.Controllers
+namespace FPTBook.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     public class UserRolesController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

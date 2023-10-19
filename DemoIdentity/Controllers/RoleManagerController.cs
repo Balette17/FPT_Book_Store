@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FPTBookStore.Controllers
+namespace FPTBook.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class RoleManagerController : Controller

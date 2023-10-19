@@ -1,11 +1,10 @@
-using FPTBookStore.Data;
-using FPTBookStore.Models;
+using FPTBook.Data;
+using FPTBook.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using FPTBook.Controllers;
-using FPTBook.Models;
-using FPTBook.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

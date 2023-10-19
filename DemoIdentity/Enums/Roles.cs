@@ -1,4 +1,4 @@
-﻿namespace FPTBookStore.Enums
+﻿namespace FPTBook.Enums
 {
 	public enum Roles
 	{

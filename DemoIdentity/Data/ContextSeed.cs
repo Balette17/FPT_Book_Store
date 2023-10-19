@@ -1,7 +1,7 @@
-﻿using FPTBookStore.Models;
+﻿using FPTBook.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace FPTBookStore.Data
+namespace FPTBook.Data
 {
 	public static class ContextSeed
 	{

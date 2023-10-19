@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FPTBook.Models;
-using FPTBookStore.Data;
+using FPTBook.Data;
 using Microsoft.AspNetCore.Authorization;
 
 namespace FPTBook.Controllers

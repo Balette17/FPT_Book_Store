@@ -51,31 +51,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-
-                        @if (User.IsInRole("Admin"))
-                        {
                           <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="RoleManager" asp-action="Index">Role Manager</a>
                         </li>  
-                        } else{}
-                      @if (User.IsInRole("Owner"))
-                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">Books</a>
                             </li>
-                            <li class="nav-item">
+                         <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
                             </li>
-
-                        }
-                        else { }
-
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="CheckOut"><i class="fa-solid fa-cart-shopping"></i></a>
 
                             </li>
-
-                    
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="AcceptCatogories" asp-action="Index">AcceptCatogories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="UserList" asp-action="Index">SetPassWord</a>
+                        </li>
+                 
 
                     </ul>
 

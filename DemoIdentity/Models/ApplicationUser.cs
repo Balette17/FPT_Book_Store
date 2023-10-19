@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace FPTBookStore.Models
+namespace FPTBook.Models
 {
     public class ApplicationUser : IdentityUser
     {

@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using FPTBookStore.Data;
+using FPTBook.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.OpenApi;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace FPTBook.Models

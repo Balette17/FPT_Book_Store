@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using FPTBookStore.Models;
+using FPTBook.Models;
 
-namespace FPTBookStore.Areas.Identity.Pages.Account
+namespace FPTBook.Areas.Identity.Pages.Account
 {
     public class LogoutModel : PageModel
     {

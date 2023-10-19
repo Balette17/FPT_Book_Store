@@ -1,10 +1,10 @@
-﻿using FPTBookStore.Data;
-using FPTBookStore.Models;
+﻿using FPTBook.Data;
+using FPTBook.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
-namespace FPTBookStore.Controllers
+namespace FPTBook.Controllers
 {
     public class HomeController : Controller
     {

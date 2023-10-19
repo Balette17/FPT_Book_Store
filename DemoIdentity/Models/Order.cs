@@ -1,4 +1,4 @@
-﻿using FPTBookStore.Models;
+﻿using FPTBook.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace FPTBook.Models

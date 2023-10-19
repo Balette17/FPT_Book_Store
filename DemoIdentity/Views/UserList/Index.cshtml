@@ -1,0 +1,29 @@
+﻿@model IEnumerable<FPTBook.Models.ApplicationUser>
+@{
+    ViewData["Title"] = "User List";}
+
+
+}
+
+<h1>User List</h1> 
+<table> User List</table>
+ <thead>
+     <tr>
+         <th>
+             UserName
+         </th>
+         <th></th>
+     </tr>
+ </thead>
+ <tbody>
+     @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.UserName
+            </td>
+            <a asp-action="SetPassword" asp-route-id="@item.Id">SetPassword</a>
+        </tr>
+    }
+
+ </tbody>
