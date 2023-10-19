@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using FPTBook.Models;
 using FPTBook.Data;
-using Microsoft.AspNetCore.Authorization;
+using FPTBook.Models;
 
 namespace FPTBook.Controllers
 {
-    [Authorize(Roles = "Owner")]
     public class AuthorsController : Controller
     {
         private readonly ApplicationDbContext _context;
