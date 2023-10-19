@@ -31,7 +31,9 @@ namespace FPTBookStore.Data
 				{
 					await userManager.CreateAsync(defaultUser, "Can@127300");;
 					await userManager.AddToRoleAsync(defaultUser, Enums.Roles.Admin.ToString());
-				}
+                    await roleManager.CreateAsync(new IdentityRole(Enums.Roles.Owner.ToString()));
+                    await roleManager.CreateAsync(new IdentityRole(Enums.Roles.User.ToString()));
+                }
 
 			}
 		}

@@ -22,6 +22,22 @@ namespace FPTBook.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("FPTBook.Models.AcceptCatogory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AcceptCatogory");
+                });
+
             modelBuilder.Entity("FPTBook.Models.Author", b =>
                 {
                     b.Property<int>("Id")

@@ -43,6 +43,7 @@ namespace FPTBook.Models
     {
         public int Id { get; set; }
         public string? Name { get; set; }
+
         public ICollection<Book>? Books { get; set; }
     }
     public class Category
@@ -50,6 +51,11 @@ namespace FPTBook.Models
         public int Id { get; set; }
         public string? Name { get; set; }
         public ICollection<Book>? Books { get; set; }
+        public Category() { }
+        public Category(AcceptCatogory tc)
+        {
+            this.Name = tc.Name;
+        }
     }
 
     public class PublishingCompany

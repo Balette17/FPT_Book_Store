@@ -17,6 +17,7 @@ namespace FPTBookStore.Data
         public DbSet<FPTBook.Models.Category> Category { get; set; } = default!;
         public DbSet<FPTBook.Models.Order> Order { get; set; } = default!;
         public DbSet<FPTBook.Models.OrderItem> OrderItem { get; set; } = default!;
+        public DbSet<FPTBook.Models.AcceptCatogory> AcceptCatogory { get; set; } = default!;
 
     }
 }
